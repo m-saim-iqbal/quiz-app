@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import he from 'he';
+import Timer from './Timer';
+import { NavLink } from 'react-router-dom';
 
 function Medium() {
   const [questions, setQuestions] = useState([]);
@@ -10,6 +12,9 @@ function Medium() {
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [results, setResults] = useState(null); // State to store the result component
+  const [startTime, setStartTime] = useState(null); // State to store the quiz start time
+  const [isTimerStopped, setIsTimerStopped] = useState(false); // State to track if the timer should be stopped
+  const [totalTime, setTotalTime] = useState(0); // State to store the total time taken in milliseconds
 
   useEffect(() => {
     axios
@@ -28,15 +33,7 @@ function Medium() {
   }, []);
 
   const handleOptionChange = (event) => {
-    const { name, value} = event.target;
-    // disabled = true;
-    // if(value === questions.correctAnswers) {
-
-    // }
-    // console.log(name.slice(-1))  [{},{},{}]
-    // console.log(value)
-    // console.log(questions[name.slice(-1)].correct_answer)
-    console.log(selectedOptions)
+    const { name, value } = event.target;
     setSelectedOptions(prevSelectedOptions => {
       return [
         ...prevSelectedOptions,
@@ -48,10 +45,13 @@ function Medium() {
     });
   };
 
-  // console.log(selectedOptions)
+  const handleQuizStart = () => {
+    setStartTime(Date.now()); // Mark the start time of the quiz
+  };
 
   const handleQuizSubmit = () => {
     setIsSubmitted(true);
+    setIsTimerStopped(true); // Stop the timer when the quiz is submitted
 
     // Calculate the quiz results based on selected options
     const totalQuestions = questions.length;
@@ -64,12 +64,33 @@ function Medium() {
       }
     });
 
+    // Calculate the elapsed time
+    const endTime = Date.now();
+    const elapsedTime = endTime - startTime;
+    setTotalTime(elapsedTime);
+
     // Set the result component to be displayed
     setResults(
       <div className='results'>
-        <h1>Result: {correctAnswers} / {totalQuestions}</h1>
+        <h1>You Scored: {correctAnswers} / {totalQuestions}</h1>
+        <h2>Total Time Taken: {formatTime(elapsedTime)}</h2>
+        <NavLink to={'/'}>
+          <div>
+            <button className='btn submit-button'>Main Menu</button>
+          </div>
+        </NavLink>
       </div>
     );
+  };
+
+  // Helper function to format time in HH:mm:ss format
+  const formatTime = (time) => {
+    const pad = (n) => (n < 10 ? '0' + n : n);
+    const seconds = Math.floor((time / 1000) % 60);
+    const minutes = Math.floor((time / 1000 / 60) % 60);
+    const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   };
 
   if (isLoading) {
@@ -86,6 +107,13 @@ function Medium() {
         results
       ) : (
         <div className='question-card-main'>
+          {startTime && !isTimerStopped ? ( // Render the Timer component only after the quiz has started and if it is not stopped
+            <Timer startTime={startTime} isSubmitted={isSubmitted} />
+          ) : (
+            <button className='btn start-button' onClick={handleQuizStart}>
+              Start Quiz
+            </button>
+          )}
           <div className='container question-card'>
             <div className='info'>
               <h1>{localStorage.getItem('name')}</h1>

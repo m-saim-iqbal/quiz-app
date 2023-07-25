@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from 'react-router-dom';
 
 function Start() {
   const [formData, setFormData] = React.useState({
-    Name: "",
-    email: ""
+    Name: '',
+    email: ''
   });
 
   const [isFilled, setIsFilled] = React.useState(false);
@@ -37,47 +37,47 @@ function Start() {
 
       <form onSubmit={handleSubmit} className='form'>
         <h3>Please fill out the form before starting the quiz</h3>
-        <div className="mb-3">
+        <div className='mb-3'>
           <input
-            type="name"
+            type='name'
             onChange={handleChange}
-            className="form-control"
-            id="exampleInputEmail1"
+            className='form-control'
+            id='exampleInputEmail1'
             placeholder='Your Name'
             name='Name'
             value={formData.Name}
           />
         </div>
-        <div className="mb-3">
+        <div className='mb-3'>
           <input
-            type="email"
+            type='email'
             onChange={handleChange}
-            className="form-control"
+            className='form-control'
             placeholder='Your Email'
-            id="exampleInputPassword1"
+            id='exampleInputPassword1'
             name='email'
             value={formData.email}
           />
         </div>
         <div className='button-container'>
-          <button className="btn btn-danger">Submit</button>
+          <button className='btn btn-danger'>Submit</button>
         </div>
+        {isFilled && <p style={{textAlign: 'center',marginTop: '10px', fontSize: '1rem', color: 'green'}}>Form submitted successfully</p>}
       </form>
 
-    
-      <NavLink to="easy">
+      <NavLink to={isFilled ? 'easy' : ''}>
         <button className='btn start-button' disabled={!isFilled}>
           Easy
         </button>
       </NavLink>
 
-      <NavLink to="medium">
+      <NavLink to={isFilled ? 'medium' : ''}>
         <button className='btn start-button' disabled={!isFilled}>
           Medium
         </button>
       </NavLink>
 
-      <NavLink to="hard">
+      <NavLink to={isFilled ? 'hard' : ''}>
         <button className='btn start-button' disabled={!isFilled}>
           Hard
         </button>

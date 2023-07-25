@@ -5,6 +5,7 @@ import Easy from "./components/Easy";
 import Medium from "./components/Medium"
 import Hard from "./components/Hard"
 import NotFound from "./components/NotFound";
+import Timer from "./components/Timer";
 
 const AppRouter = () => {
   return (
@@ -45,7 +46,7 @@ function App() {
     //   {/* <Start difficulty={difficulty} onSelectDifficulty={handleDifficultySelect} /> */}
     // <Hard />
     // </div>
-
+    // <Timer />
     // <RouterProvider router = {router} />
   );
 }
