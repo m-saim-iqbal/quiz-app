@@ -6,8 +6,10 @@ function Easy() {
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedOptions, setSelectedOptions] = useState({});
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [results, setResults] = useState(null); // State to store the result component
 
   useEffect(() => {
     axios
@@ -26,30 +28,48 @@ function Easy() {
   }, []);
 
   const handleOptionChange = (event) => {
-    const { name, value } = event.target;
-    setSelectedOptions((prevSelectedOptions) => ({
-      ...prevSelectedOptions,
-      [name]: value,
-    }));
+    const { name, value} = event.target;
+    // disabled = true;
+    // if(value === questions.correctAnswers) {
+
+    // }
+    // console.log(name.slice(-1))  [{},{},{}]
+    // console.log(value)
+    // console.log(questions[name.slice(-1)].correct_answer)
+    console.log(selectedOptions)
+    setSelectedOptions(prevSelectedOptions => {
+      return [
+        ...prevSelectedOptions,
+        {
+          [name]: value,
+          clicked: true
+        }
+      ]
+    });
   };
 
+  // console.log(selectedOptions)
+
   const handleQuizSubmit = () => {
+    setIsSubmitted(true);
+
     // Calculate the quiz results based on selected options
     const totalQuestions = questions.length;
     let correctAnswers = 0;
 
     questions.forEach((questionData, index) => {
-      const selectedOption = selectedOptions[`question_${index}`];
+      const selectedOption = selectedOptions[index]?.[`question_${index}`];
       if (selectedOption === questionData.correct_answer) {
         correctAnswers++;
       }
     });
 
-    // Log the results to the console
-    console.log('Quiz Results:');
-    console.log(`Total Questions: ${totalQuestions}`);
-    console.log(`Correct Answers: ${correctAnswers}`);
-    console.log(`Incorrect Answers: ${totalQuestions - correctAnswers}`);
+    // Set the result component to be displayed
+    setResults(
+      <div className='results'>
+        <h1>Result: {correctAnswers} / {totalQuestions}</h1>
+      </div>
+    );
   };
 
   if (isLoading) {
@@ -61,31 +81,54 @@ function Easy() {
   }
 
   return (
-    <div className='question-card-main'>
-      <div className='container question-card'>
-        {questions.map((questionData, index) => (
-          <div className='questions' key={index}>
-            <h2>{he.decode(questionData.question)}</h2>
-            <form className='choices'>
-              {shuffledOptions[index].map((option, optionIndex) => (
-                <div className='labels' key={optionIndex}>
-                  <input
-                    type='radio'
-                    id={`option_${index}_${optionIndex}`}
-                    name={`question_${index}`}
-                    value={option}
-                    checked={selectedOptions[`question_${index}`] === option}
-                    onChange={handleOptionChange}
-                  />
-                  <label htmlFor={`option_${index}_${optionIndex}`}>{he.decode(option)}</label>
-                </div>
-              ))}
-            </form>
-            <br />
+    <div>
+      {isSubmitted ? (
+        results
+      ) : (
+        <div className='question-card-main'>
+          <div className='container question-card'>
+            <div className='info'>
+              <h1>{localStorage.getItem('name')}</h1>
+              <h4>{localStorage.getItem('email')}</h4>
+            </div>
+            {questions.map((questionData, index) => (
+              <div className='questions' key={index}>
+                <h2>{index + 1}. {he.decode(questionData.question)}</h2>
+                <form className='choices'>
+                  {shuffledOptions[index].map((option, optionIndex) => (
+                    <div className='labels' key={optionIndex}>
+                      <input
+                        type='radio'
+                        id={`option_${index}_${optionIndex}`}
+                        name={`question_${index}`}
+                        value={option}
+                        checked={selectedOptions[index]?.[`question_${index}`] === option}
+                        onChange={handleOptionChange}
+                      />
+                      <label
+                        htmlFor={`option_${index}_${optionIndex}`}
+                        className={
+                          selectedOptions[index]?.clicked
+                            ? option === questionData.correct_answer
+                              ? 'correct-answer'
+                              : 'wrong-answer'
+                            : ''
+                        }
+                      >
+                        {he.decode(option)}
+                      </label>
+                    </div>
+                  ))}
+                </form>
+                <br />
+              </div>
+            ))}
+            <div className='button-container'>
+              <button className='submit-button btn' onClick={handleQuizSubmit}>Submit Quiz</button>
+            </div>
           </div>
-        ))}
-        <button onClick={handleQuizSubmit}>Submit Quiz</button>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

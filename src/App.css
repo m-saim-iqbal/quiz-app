@@ -9,6 +9,10 @@
   color: #293264;
 }
 
+.form {
+  margin: 50px 0;
+}
+
 .start>h1 {
   font-size: 2rem;
   font-weight: bold;
@@ -35,7 +39,25 @@
   background-color: #F5F7FB;
   width: 100%;
   display: flex;
+  flex-direction: column;
   padding: 20px 30px;
+}
+
+.info {
+  margin-bottom: 50px;
+}
+
+.info > h1 {
+  font-size: 2rem;
+  color: #293264;
+  font-weight: bold;
+  font-family: 'Karla', 'sans-serif';
+}
+
+.info > h4 {
+  font-size: 1.25rem;
+  color: #293264;
+  font-family: 'Karla', 'sans-serif';
 }
 
 .questions {
@@ -76,3 +98,48 @@ input[type="radio"]:checked+label {
   color: #fff;
 }
 
+.correct-answer{
+  background-color: green;
+  color: white;
+}
+
+.wrong-answer{
+  background-color: red;
+  color: white;
+}
+
+.button-container{
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button{
+  background-color: #4D5B9E;
+  color: #F5F7FB;
+  border-radius: 8px;
+  font-family: 'Inter', 'sans-serif';
+  font-weight: 500;
+  margin-top: 25px;
+}
+
+.results {
+  margin-top: 15px;
+  text-align: center;
+  color: #293264;
+  font-family: 'Inter';
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.notfound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F5F7FB;
+}
+
+.notfound > h1 {
+  color: #293264;
+  font-family: 'Inter';
+  font-weight: 800;
+}
