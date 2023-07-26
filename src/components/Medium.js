@@ -12,7 +12,7 @@ function Medium() {
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [results, setResults] = useState(null); // State to store the result component
-  const [startTime, setStartTime] = useState(null); // State to store the quiz start time
+  const [startTime, setStartTime] = useState(Date.now()); // State to store the quiz start time
   const [isTimerStopped, setIsTimerStopped] = useState(false); // State to track if the timer should be stopped
   const [totalTime, setTotalTime] = useState(0); // State to store the total time taken in milliseconds
 
@@ -45,9 +45,9 @@ function Medium() {
     });
   };
 
-  const handleQuizStart = () => {
-    setStartTime(Date.now()); // Mark the start time of the quiz
-  };
+  // const handleQuizStart = () => {
+  //   setStartTime(Date.now()); // Mark the start time of the quiz
+  // };
 
   const handleQuizSubmit = () => {
     setIsSubmitted(true);
@@ -107,12 +107,13 @@ function Medium() {
         results
       ) : (
         <div className='question-card-main'>
-          {startTime && !isTimerStopped ? ( // Render the Timer component only after the quiz has started and if it is not stopped
+          {!isTimerStopped ? ( // Render the Timer component only after the quiz has started and if it is not stopped
             <Timer startTime={startTime} isSubmitted={isSubmitted} />
           ) : (
-            <button className='btn start-button' onClick={handleQuizStart}>
-              Start Quiz
-            </button>
+            // <button className='btn start-button' onClick={handleQuizStart}>
+            //   Start Quiz
+            // </button>
+            <div></div>
           )}
           <div className='container question-card'>
             <div className='info'>

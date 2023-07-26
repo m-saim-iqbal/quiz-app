@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
 
-function Timer({ startTime, stopTimer }) {
-  const [elapsedTime, setElapsedTime] = useState(0);
+function Timer({ startTime, handleQuizSubmit }) {
+  const [elapsedTime, setElapsedTime] = useState(1 * 60 * 1000); // 5 minutes in milliseconds
+  const MAX_TIME = 1 * 60 * 1000; // 5 minutes in milliseconds
 
   useEffect(() => {
     let interval;
-    if (!stopTimer) {
+    const endTime = startTime + MAX_TIME;
+
+    if (Date.now() >= endTime) {
+      // Timer has reached 0, handle quiz submission
+      handleQuizSubmit();
+    } else {
+      setElapsedTime(endTime - Date.now());
+
       interval = setInterval(() => {
-        setElapsedTime(Date.now() - startTime);
+        const remainingTime = endTime - Date.now();
+        setElapsedTime(remainingTime);
+
+        if (remainingTime <= 0) {
+          handleQuizSubmit();
+          clearInterval(interval);
+        }
       }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [startTime, stopTimer]);
+  }, [startTime, handleQuizSubmit, MAX_TIME]);
 
   const formatTime = (time) => {
     const pad = (n) => (n < 10 ? '0' + n : n);
@@ -33,3 +47,4 @@ function Timer({ startTime, stopTimer }) {
 }
 
 export default Timer;
+

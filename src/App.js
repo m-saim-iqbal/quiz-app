@@ -6,6 +6,7 @@ import Medium from "./components/Medium"
 import Hard from "./components/Hard"
 import NotFound from "./components/NotFound";
 import Timer from "./components/Timer";
+import CountDown from "./components/CountDown"
 
 const AppRouter = () => {
   return (
@@ -48,6 +49,7 @@ function App() {
     // </div>
     // <Timer />
     // <RouterProvider router = {router} />
+    // <CountDown />
   );
 }
 

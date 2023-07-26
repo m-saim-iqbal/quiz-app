@@ -93,10 +93,15 @@ label {
 }
 
 /* Style the selected label to have a different background color to indicate selection */
-input[type="radio"]:checked+label {
-  background-color: #041014;
+/* .radio-buttonc input[type="radio"]:checked+label {
+  background-color: green;
   color: #fff;
-}
+} */
+
+/* .radio-buttonw input[type="radio"]:checked+label {
+  background-color: red;
+  color: #fff;
+} */
 
 .correct-answer{
   background-color: green;

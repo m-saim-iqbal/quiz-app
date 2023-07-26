@@ -25,8 +25,6 @@ function Start() {
       setIsFilled(true);
       localStorage.setItem('name', formData.Name);
       localStorage.setItem('email', formData.email);
-      console.log(formData);
-      console.log(localStorage);
     }
   }
 
