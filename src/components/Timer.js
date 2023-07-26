@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function Timer({ startTime, handleQuizSubmit }) {
-  const [elapsedTime, setElapsedTime] = useState(1 * 60 * 1000); // 5 minutes in milliseconds
-  const MAX_TIME = 1 * 60 * 1000; // 5 minutes in milliseconds
+  const [elapsedTime, setElapsedTime] = useState(80 * 60 * 1000); // 5 minutes in milliseconds
+  const MAX_TIME = 80 * 60 * 1000; // 5 minutes in milliseconds
 
   useEffect(() => {
     let interval;
@@ -37,11 +37,11 @@ function Timer({ startTime, handleQuizSubmit }) {
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
   };
 
-  const timerClassName = elapsedTime >= 20 * 60 * 1000 ? 'timer-hurryup' : 'timer';
+  // const timerClassName = elapsedTime >= 20 * 60 * 1000 ? 'timer-hurryup' : 'timer';
 
   return (
     <div>
-      <div className={timerClassName}>{formatTime(elapsedTime)}</div>
+      <div className='timer'>{formatTime(elapsedTime)}</div>
     </div>
   );
 }

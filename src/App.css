@@ -1,74 +1,127 @@
+body{
+  background-color: #669bbc;
+}
 .start {
-  width: 100%;
-  height: 100vh;
-  background-color: #F5F7FB;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #293264;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
 }
 
 .form {
-  margin: 50px 0;
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form>h3 {
+  font-size: 1.12rem;
+  color: #3c1642
+}
+
+.form-button {
+  padding: 5px 25px;
+  background-color: #086375;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-button:hover {
+  background-color: #3c1642;
+  color: white;
+  font-family: 'Inter', sans-serif;
 }
 
 .start>h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
+  color: #3c1642;
   font-family: 'Karla', sans-serif;
 }
 
 .start>p {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-family: 'Inter', sans-serif;
+  color: #3c1642;
 }
 
 .start-button {
-  border: 1px solid #293264;
   margin: 10px;
-  padding: 5px 45px;
+  padding: 5px 65px;
+  background-color: #086375;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 20px;
 }
 
 .start-button:hover {
-  background-color: #293264;
-  color: #F5F7FB;
+  background-color: #3c1642;
+  color: white;
+  font-family: 'Inter', sans-serif;
 }
 
+
+
 .question-card-main {
-  background-color: #F5F7FB;
+  background-color: #086375;
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px 30px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 120px;
+}
+
+.question-card {
+  /* box-shadow: 0px 0px 35px -18px rgba(0, 0, 0, 0.75);
+  padding: 10px;
+  /* background-color: #1dd3b0; */
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.411);
+
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .info {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 }
 
-.info > h1 {
-  font-size: 2rem;
-  color: #293264;
+.info>h1 {
+  font-size: 1.5rem;
+  color: #3c1642;
   font-weight: bold;
   font-family: 'Karla', 'sans-serif';
 }
 
-.info > h4 {
-  font-size: 1.25rem;
-  color: #293264;
+.info>h4 {
+  font-size: 1.1rem;
+  color: #3c1642;
   font-family: 'Karla', 'sans-serif';
 }
 
 .questions {
-  border-bottom: 1px solid #293264;
+  /* border-bottom: 1px solid #293264; */
   padding-bottom: 1px;
   margin-top: 20px;
 }
 
 .questions>h2 {
-  font-size: 1.5rem;
-  color: #293264;
+  font-size: 1.25rem;
+  color: #3c1642;
   font-weight: bold;
   font-family: 'Karla', 'sans-serif';
 }
@@ -80,17 +133,23 @@ input[type="radio"] {
 
 /* Style the label to look like a button */
 label {
-  padding: 5px 20px;
+  width: 100%;
+  padding: 3px 25px;
   background-color: #f2f2f2;
   border-radius: 5px;
   cursor: pointer;
   margin: 5px 0;
   border: 1px solid #293264;
   border-radius: 8;
-  color: #293264;
+  color: #3c1642;
   font-family: 'Inter';
   font-weight: 500;
 }
+
+/* label:hover {
+  background-color: #086375;
+  color: white;
+} */
 
 /* Style the selected label to have a different background color to indicate selection */
 /* .radio-buttonc input[type="radio"]:checked+label {
@@ -103,22 +162,22 @@ label {
   color: #fff;
 } */
 
-.correct-answer{
-  background-color: green;
+.correct-answer {
+  background-color: rgb(36, 138, 36);
   color: white;
 }
 
-.wrong-answer{
-  background-color: red;
+.wrong-answer {
+  background-color: rgb(255, 54, 54);
   color: white;
 }
 
-.button-container{
+.button-container {
   display: flex;
   justify-content: center;
 }
 
-.submit-button{
+.submit-button {
   background-color: #4D5B9E;
   color: #F5F7FB;
   border-radius: 8px;
@@ -148,18 +207,22 @@ label {
   background-color: #F5F7FB;
 }
 
-.notfound > h1 {
+.notfound>h1 {
   color: #293264;
   font-family: 'Inter';
   font-weight: 800;
 }
 
 .timer {
-  position: fixed;
+  /* display: flex;
+  justify-content: end; */
+  /* position: fixed;
   right: 0;
-  margin: 30px;
+  top: 0;
+  margin: 15px 60px; */
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  color: #3c1642;
 }
 
 .timer.hurryup {
@@ -168,5 +231,5 @@ label {
   margin: 30px;
   font-weight: bold;
   font-size: 2rem;
-  color: red;  
+  color: red;
 }

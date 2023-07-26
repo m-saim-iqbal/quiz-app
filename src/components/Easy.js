@@ -13,7 +13,7 @@ function Easy() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [results, setResults] = useState(null); // State to store the result component
   const [startTime, setStartTime] = useState(Date.now()); // State to store the quiz start time
-  const [isTimerStopped, setIsTimerStopped] = useState(false);const [index, setIndex] = useState(0); // this will be the index of the array that will be displayed on the screen
+  const [isTimerStopped, setIsTimerStopped] = useState(false); const [index, setIndex] = useState(0); // this will be the index of the array that will be displayed on the screen
   // const [isOptionSelectedTemp, setIsOptionSelectedTemp] = useState([false])
 
 
@@ -33,7 +33,7 @@ function Easy() {
       });
   }, []);
 
-  const handleOptionChange = (event) => {
+  const handleOptionChange = (event, quesNo) => {
     const { name, value } = event.target;
     const selectedOption = {
       [name]: value,
@@ -107,31 +107,32 @@ function Easy() {
       <div className='questions' key={index}>
         <h2>{index + 1}. {he.decode(arr[index].question)}</h2>
         <form className='choices'>
-        {shuffledOptions[index].map((option, optionIndex) => {
-          let isOptionSelected = selectedOptions[index]?.[`question_${index}`] === option;
-          const isOptionCorrect = option === arr[index].correct_answer;
+          {shuffledOptions[index].map((option, optionIndex) => {
+            let isOptionSelected = selectedOptions[index]?.[`question_${index}`] === option;
+            const isOptionCorrect = option === arr[index].correct_answer;
 
-          return (
-            <div className='labels' key={optionIndex}>
-              <input
-                type='radio'
-                id={`option_${index}_${optionIndex}`}
-                name={`question_${index}`}
-                value={option}
-                checked={isOptionSelected}
-                onChange={handleOptionChange}
-                disabled = {selectedOptions[index]?.clicked}
-              />
-              <label
-                htmlFor={`option_${index}_${optionIndex}`}
-                className={isOptionSelected ? (isOptionCorrect ? 'correct-answer' : 'wrong-answer') : ''}
-              >
-                {he.decode(option)}
-              </label>
-            </div>
-          );
-        })}
-      </form>
+            return (
+              <div className='labels' key={optionIndex}>
+                <input
+                  className=''
+                  type='radio'
+                  id={`option_${index}_${optionIndex}`}
+                  name={`question_${index}`}
+                  value={option}
+                  checked={isOptionSelected}
+                  onChange={handleOptionChange}
+                  disabled={selectedOptions[index]?.clicked}
+                />
+                <label
+                  htmlFor={`option_${index}_${optionIndex}`}
+                  className={isOptionSelected ? (isOptionCorrect ? 'correct-answer' : 'wrong-answer') : ''}
+                >
+                  {he.decode(option)}
+                </label>
+              </div>
+            );
+          })}
+        </form>
         <br />
       </div>
 
@@ -139,34 +140,42 @@ function Easy() {
   }
 
   return (
-    <div>
+    // <div className='question-card-main'>
+    <div className='container' style={{height: '100vh'}}>
       {isSubmitted ? (
         results
       ) : (
-        <div className='question-card-main'>
-          {!isTimerStopped ? (
-            <Timer startTime={startTime} handleQuizSubmit={handleQuizSubmit} />
-          ) : (
-            <div></div>
-          )}
-          <div className='container question-card'>
-            <div className='info'>
-              <h1>{localStorage.getItem('name')}</h1>
-              <h4>{localStorage.getItem('email')}</h4>
-              <h4>Attempted: {index} / {questions.length}</h4>
-            </div>
-            {/* selectedOptions.filter(option => Object.keys(option).length > 0).length */}
-            {/* array to be rendered here */}
-            {/* <button onClick={addElement}>Add Items</button> */}
-            {/* {{correctAnswers} / {totalQuestions}} */}
-            {getElements(questions, index)}
-            <div className='button-container'>
-              {index === 19 && <button className='submit-button btn' onClick={handleQuizSubmit}>Submit Quiz</button>}
+        <div className='row align-items-center justify-content-center h-100'>
+          <div className="col-md-8">
+            <div className='question-card'>
+              <div className='info-container'>
+                <div className='info'>
+                  <h1>{localStorage.getItem('name')}</h1>
+                  <h4>{localStorage.getItem('email')}</h4>
+                  <h4>Attempted: {index} / {questions.length}</h4>
+
+                </div>
+                {!isTimerStopped ? (
+                  <Timer startTime={startTime} handleQuizSubmit={handleQuizSubmit} />
+                ) : (
+                  <div></div>
+                )}
+              </div>
+
+              {/* selectedOptions.filter(option => Object.keys(option).length > 0).length */}
+              {/* array to be rendered here */}
+              {/* <button onClick={addElement}>Add Items</button> */}
+              {/* {{correctAnswers} / {totalQuestions}} */}
+              {getElements(questions, index)}
+              <div className='button-container'>
+                {index === 19 && <button className='form-button btn' onClick={handleQuizSubmit}>Submit Quiz</button>}
+              </div>
             </div>
           </div>
         </div>
       )}
     </div>
+    // </div>
   );
 }
 
