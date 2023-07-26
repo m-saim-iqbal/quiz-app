@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function Timer({ startTime, handleQuizSubmit }) {
-  const [elapsedTime, setElapsedTime] = useState(80 * 60 * 1000); // 5 minutes in milliseconds
-  const MAX_TIME = 80 * 60 * 1000; // 5 minutes in milliseconds
+  const [elapsedTime, setElapsedTime] = useState( 10 * 1000); // 5 minutes in milliseconds
+  const MAX_TIME = 10 * 1000; // 5 minutes in milliseconds
 
   useEffect(() => {
     let interval;

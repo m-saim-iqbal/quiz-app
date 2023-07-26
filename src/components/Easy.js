@@ -66,15 +66,22 @@ function Easy() {
 
     // Set the result component to be displayed
     setResults(
-      <div className='results'>
-        <h1>You Scored: {correctAnswers} / {totalQuestions}</h1>
-        {/* <h2>Total Time Taken: {formatTime(elapsedTime)}</h2> */}
-        <NavLink to={'/'}>
-          <div>
-            <button className='btn submit-button'>Main Menu</button>
+      <div className='row align-items-center justify-content-center h-100'>
+        <div className="col-md-8">
+        <div className='results'>
+          <div className='question-card'>
+                <h2 style={{color: '#3c1642'}}>You Scored: {correctAnswers} / {totalQuestions}</h2>
+                {/* <h2>Total Time Taken: {formatTime(elapsedTime)}</h2> */}
+                <NavLink to={'/'}>
+                  <div>
+                    <button className='btn submit-button'>Main Menu</button>
+                  </div>
+                </NavLink>
+            </div>
           </div>
-        </NavLink>
+        </div>
       </div>
+
     );
   };
 
@@ -141,7 +148,7 @@ function Easy() {
 
   return (
     // <div className='question-card-main'>
-    <div className='container' style={{height: '100vh'}}>
+    <div className='container' style={{ height: '100vh' }}>
       {isSubmitted ? (
         results
       ) : (
